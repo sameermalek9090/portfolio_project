@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav_about %}active{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="about-wrap">
+  <div class="section-label reveal">Who I am</div>
+  <h1 class="page-title reveal">About Me</h1>
+
+  <!-- INTRO -->
+  <div class="about-intro reveal">
+    <!-- Left: Avatar -->
+    <div class="avatar-block">
+      <div class="avatar-glow-ring">
+        <div class="avatar-img">
+          <img src="{% static 'IMG_6509.jpg' %}" alt="Sameer Malek">
+        </div>
+      </div>
+      <div class="avatar-badge">
+        <span class="badge-dot"></span> Available for work
+      </div>
+    </div>
+
+    <!-- Right: Text + Info -->
+    <div class="about-text">
+      <p class="about-lead">Hey! I'm <strong>Sameer Malek</strong>, a Python &amp; Django developer based in India. I build clean, scalable web applications and love turning ideas into real products.</p>
+      <p>My journey started with Python fundamentals and quickly evolved into full-stack Django development — building everything from REST APIs to complete admin dashboards with authentication systems.</p>
+      <p>When I'm not coding, I'm learning new technologies, contributing to open source, and exploring how AI is reshaping backend development.</p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-key">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Location
+          </div>
+          <div class="info-val">India 🇮🇳</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Experience
+          </div>
+          <div class="info-val">1+ Years</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Focus
+          </div>
+          <div class="info-val">Django &amp; Python</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </div>
+          <div class="info-val info-email">maleksameer654@gmail.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS SECTION -->
+  <div class="section-label reveal">Expertise</div>
+  <h2 class="page-title reveal" style="font-size: clamp(24px, 4vw, 36px); margin-bottom: 32px;">My Skills</h2>
+
+  <!-- MAIN BARS -->
+  <div class="skills-main">
+    <div class="skill-row reveal">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png"
+              alt="" style="width: 18PX; height: 18px;"></span><span class="skill-name">Python</span></div>
+        <span class="skill-pct">90%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:90%"></div>
+      </div>
+      <div class="skill-sub">OOP, scripting, automation, data structures, algorithms</div>
+    </div>
+
+    <div class="skill-row reveal" style="transition-delay:0.05s">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji">
+            <img src="https://www.svgrepo.com/show/373554/django.svg" alt="" style="width: 18px; height: 18px;">
+          </span><span class="skill-name">Django</span></div>
+        <span class="skill-pct">85%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:85%"></div>
+      </div>
+      <div class="skill-sub">MVT, ORM, auth, middleware, admin, class-based views</div>
+    </div>
+
+    <div class="skill-row reveal" style="transition-delay:0.1s">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji">
+            <img src="https://icon.icepanel.io/Technology/svg/Django-REST.svg" alt=""
+              style="width: 18px; height: 18px;">
+          </span><span class="skill-name">Django REST Framework</span>
+        </div>
+        <span class="skill-pct">78%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:78%"></div>
+      </div>
+      <div class="skill-sub">Serializers, ViewSets, JWT auth, token auth, pagination</div>
+    </div>
+
+    <div class="skill-row reveal" style="transition-delay:0.15s">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji">
+            <img src="https://icon.icepanel.io/Technology/svg/SQL-Developer.svg" alt=""
+              style="width: 18px; height: 18px;">
+          </span><span class="skill-name">SQL / SQLite</span></div>
+        <span class="skill-pct">80%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:80%"></div>
+      </div>
+      <div class="skill-sub">Schema design, complex queries, migrations, indexing</div>
+    </div>
+
+    <div class="skill-row reveal" style="transition-delay:0.2s">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji">
+            <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="" style="width: 18px; height: 18px;">
+          </span><span class="skill-name">HTML / CSS /
+            Bootstrap</span></div>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:82%"></div>
+      </div>
+      <div class="skill-sub">Responsive layouts, component design, templates</div>
+    </div>
+
+    <div class="skill-row reveal" style="transition-delay:0.25s">
+      <div class="skill-header">
+        <div class="skill-left"><span class="skill-emoji">
+            <img src="https://icon.icepanel.io/Technology/svg/GitLab.svg" alt="" style="width: 18px; height: 18px;">
+          </span><span class="skill-name">Git / GitHub</span></div>
+        <span class="skill-pct">75%</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill" style="width:75%"></div>
+      </div>
+      <div class="skill-sub">Branching, pull requests, version control workflows</div>
+    </div>
+  </div>
+
+  <!-- TECH CLOUD -->
+  <div class="tech-section reveal">
+    <div class="tech-title">Technologies I've used</div>
+    <div class="tech-cloud">
+      <span class="tech-pill"><span class="dot"></span>Python</span>
+      <span class="tech-pill"><span class="dot"></span>Django</span>
+      <span class="tech-pill"><span class="dot"></span>DRF</span>
+      <span class="tech-pill"><span class="dot"></span>SQLite</span>
+      <span class="tech-pill"><span class="dot"></span>PostgreSQL</span>
+      <span class="tech-pill"><span class="dot"></span>Bootstrap</span>
+      <span class="tech-pill"><span class="dot"></span>HTML5</span>
+      <span class="tech-pill"><span class="dot"></span>CSS3</span>
+      <span class="tech-pill"><span class="dot"></span>JavaScript</span>
+      <span class="tech-pill"><span class="dot"></span>Git</span>
+      <span class="tech-pill"><span class="dot"></span>GitHub</span>
+      <span class="tech-pill"><span class="dot"></span>VS Code</span>
+      <span class="tech-pill"><span class="dot"></span>Postman</span>
+      <span class="tech-pill"><span class="dot"></span>JWT</span>
+      <span class="tech-pill"><span class="dot"></span>SMTP</span>
+      <span class="tech-pill"><span class="dot"></span>Linux</span>
+      <span class="tech-pill"><span class="dot"></span>Nginx</span>
+      <span class="tech-pill"><span class="dot"></span>Gunicorn</span>
+      <span class="tech-pill"><span class="dot"></span>Celery</span>
+      <span class="tech-pill"><span class="dot"></span>Redis</span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section-label reveal">By category</div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:24px;" class="reveal">Skill
+    areas</h2>
+
+  <div class="cat-grid">
+    <div class="cat-card reveal">
+      <span class="cat-icon">
+        <img src="https://icon.icepanel.io/Technology/svg/Stack-Overflow.svg" alt="" style="width: 32px; height: 32px;">
+      </span>
+      <div class="cat-name">Backend</div>
+      <ul class="cat-list">
+        <li>Django MVT architecture</li>
+        <li>REST API design</li>
+        <li>Authentication & sessions</li>
+        <li>Django ORM & migrations</li>
+        <li>Middleware & signals</li>
+      </ul>
+    </div>
+
+    <div class="cat-card reveal" style="transition-delay:0.1s">
+      <span class="cat-icon">
+        <img src="https://icon.icepanel.io/Technology/svg/Azure-SQL-Database.svg" alt=""
+          style="width: 32px; height: 32px;">
+      </span>
+      <div class="cat-name">Database</div>
+      <ul class="cat-list">
+        <li>SQLite & PostgreSQL</li>
+        <li>Schema design</li>
+        <li>Complex querysets</li>
+        <li>Database indexing</li>
+        <li>Django migrations</li>
+      </ul>
+    </div>
+
+    <div class="cat-card reveal" style="transition-delay:0.2s">
+      <span class="cat-icon">
+        <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="" style="width: 32px; height: 32px;">
+      </span>
+      <div class="cat-name">Frontend</div>
+      <ul class="cat-list">
+        <li>Django templates</li>
+        <li>Bootstrap 5</li>
+        <li>Responsive design</li>
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript basics</li>
+      </ul>
+    </div>
+
+    <div class="cat-card reveal" style="transition-delay:0.3s">
+      <span class="cat-icon">🛠️</span>
+      <div class="cat-name">Tools & DevOps</div>
+      <ul class="cat-list">
+        <li>Git & GitHub</li>
+        <li>VS Code</li>
+        <li>Postman / API testing</li>
+        <li>Linux terminal</li>
+        <li>Virtual environments</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!-- CTA -->
+  <div class="about-cta reveal">
+    <div class="cta-text">
+      <h3>Want to work together?</h3>
+      <p>I'm available for freelance projects and full-time roles.</p>
+    </div>
+    <a href="/contact/" class="btn-cta">Get in touch →</a>
+  </div>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) {
+      x.target.classList.add('visible');
+      x.target.querySelectorAll('.bar-fill').forEach(b => b.classList.add('go'));
+    }
+  }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+{% endblock %}

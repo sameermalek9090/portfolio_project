@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block nav_contact %}active{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="contact-wrap">
+  <div class="section-label reveal">Reach out</div>
+  <h1 class="page-title reveal">Let's Talk</h1>
+  <p class="page-subtitle reveal">Have a project in mind, a job opportunity, or just want to say hi? I'd love to hear from you.</p>
+
+  <div class="contact-grid">
+
+    <!-- LEFT: Info -->
+    <div class="reveal">
+      <div class="avail-badge">
+        <div class="avail-dot"></div>
+        <div class="avail-text"><strong>Available for work</strong> — freelance & full-time</div>
+      </div>
+
+      <a href="mailto:maleksameer654@gmail.com" class="contact-method">
+        <div class="method-icon">✉️</div>
+        <div>
+          <div class="method-label">Email</div>
+          <div class="method-val">maleksameer654@gmail.com</div>
+        </div>
+        <div class="method-arrow">→</div>
+      </a>
+
+      <a href="https://github.com/" target="_blank" class="contact-method">
+        <div class="method-icon">
+          <i class="devicon-github-original skill-icon" style="font-size: 27px;"></i>
+        </div>
+        <div>
+          <div class="method-label">GitHub</div>
+          <div class="method-val">github.com/sameermalek</div>
+        </div>
+        <div class="method-arrow">→</div>
+      </a>
+
+      <a href="https://linkedin.com/" target="_blank" class="contact-method">
+        <div class="method-icon">
+           <img src="https://www.svgrepo.com/show/452051/linkedin.svg" alt="" style="width: 30px; height: 30px;">
+        </div>
+        <div>
+          <div class="method-label">LinkedIn</div>
+          <div class="method-val">linkedin.com/in/sameermalek</div>
+        </div>
+        <div class="method-arrow">→</div>
+      </a>
+
+
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="reveal" style="transition-delay:0.15s">
+      <!-- Added method POST and CSRF token -->
+      <form class="contact-form" method="POST" onsubmit="submitForm(this)">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" name="first_name" class="form-input" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="last_name" class="form-input" placeholder="Doe">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-input" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <div class="subject-grid">
+            <button type="button" class="subject-btn" onclick="pickSubj(this, 'Freelance Project')">Freelance Project</button>
+            <button type="button" class="subject-btn" onclick="pickSubj(this, 'Job Opportunity')">Job Opportunity</button>
+            <button type="button" class="subject-btn" onclick="pickSubj(this, 'Collaboration')">Collaboration</button>
+            <button type="button" class="subject-btn" onclick="pickSubj(this, 'Just saying hi 👋')">Just saying hi 👋</button>
+          </div>
+          <input type="hidden" name="subject" id="hidden-subject" value="">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-input" placeholder="Tell me about your project or what you have in mind..." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="submit-btn">
+          <span id="btn-label">Send Message</span>
+          <span id="btn-arrow">→</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function pickSubj(btn, val) {
+    document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    document.getElementById('hidden-subject').value = val;
+  }
+
+  function submitForm(form) {
+    const btn = document.getElementById('submit-btn');
+    const label = document.getElementById('btn-label');
+    const arrow = document.getElementById('btn-arrow');
+    btn.disabled = true;
+    label.textContent = 'Sending...';
+    arrow.textContent = '⏳';
+    // Allow the form to actually submit to Django backend
+    return true;
+  }
+</script>
+{% endblock %}

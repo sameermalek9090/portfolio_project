@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-icon">✓</div>
+    <h3 class="auth-title">Verify OTP</h3>
+    <p class="auth-subtitle">Check your email for the secret code.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label class="form-label text-center">Enter 6-Digit Code</label>
+        <input type="text" name="otp" class="form-input" placeholder="••••••" required>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        Verify & Login →
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
