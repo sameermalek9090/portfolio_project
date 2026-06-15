@@ -36,9 +36,8 @@ DEBUG ="True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = os.getenv(
-    "*"
-).split(",")
+ALLOWED_HOSTS = ["*"]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://portfolio-project-5odp.onrender.com",
 ]
