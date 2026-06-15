@@ -4,263 +4,1071 @@
 
 {% block content %}
 
+<style>
+/* ============================================
+   PERSONAL PORTFOLIO ABOUT PAGE
+   ============================================ */
+:root {
+  --bg-deep: #0f0f1a;
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --accent: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.4);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --radius: 20px;
+}
 
+[data-theme="light"] {
+  --bg-deep: #f8fafc;
+  --bg-surface: rgba(0, 0, 0, 0.03);
+  --accent: #4f46e5;
+  --accent-glow: rgba(79, 70, 229, 0.35);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --glass: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
 
+[data-theme="light"] .hero-title {
+  background: linear-gradient(135deg, #0f172a 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-<div class="about-wrap">
-  <div class="section-label reveal">Who I am</div>
-  <h1 class="page-title reveal">About Me</h1>
+[data-theme="light"] .info-pill,
+[data-theme="light"] .skill-card,
+[data-theme="light"] .cat-card,
+[data-theme="light"] .value-card,
+[data-theme="light"] .about-cta,
+[data-theme="light"] .info-item,
+[data-theme="light"] .skill-row,
+[data-theme="light"] .tech-pill {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+}
 
-  <!-- INTRO -->
-  <div class="about-intro reveal">
-    <!-- Left: Avatar -->
-    <div class="avatar-block">
-      <div class="avatar-glow-ring">
-        <div class="avatar-img">
-          <img src="{% static 'IMG_6509.jpg' %}" alt="Sameer Malek">
-        </div>
+[data-theme="light"] .photo-main {
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .bar-wrap,
+[data-theme="light"] .skill-bar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.about-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
+}
+
+/* Subtle ambient background */
+.about-page::before {
+  content: '';
+  position: fixed;
+  top: 10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about-page::after {
+  content: '';
+  position: fixed;
+  bottom: 5%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================
+   HERO SECTION - Photo + Intro
+   ============================================ */
+.about-hero {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 100px;
+  padding-top: 20px;
+}
+
+/* Photo Frame - Portrait style for full outfit */
+.photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.photo-main {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid var(--glass-border);
+  box-shadow: 
+    0 20px 60px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05);
+  transition: all 0.4s ease;
+}
+
+.photo-main:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 30px 80px rgba(0,0,0,0.6),
+    0 0 40px rgba(99,102,241,0.15);
+}
+
+.photo-main img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.photo-main:hover img {
+  transform: scale(1.03);
+}
+
+/* Decorative elements around photo */
+.photo-deco {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--accent);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.photo-deco.top-left {
+  top: -15px;
+  left: -15px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 20px 0 0 0;
+}
+
+.photo-deco.bottom-right {
+  bottom: -15px;
+  right: -15px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 20px 0;
+}
+
+/* Availability badge */
+.availability-badge {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: rgba(15, 15, 26, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.badge-pulse {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  position: relative;
+}
+
+.badge-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: #22c55e;
+  opacity: 0.4;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Text Content */
+.hero-text {
+  padding-top: 10px;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.hero-label::before {
+  content: '';
+  width: 30px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.hero-title {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title .name-highlight {
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.hero-desc strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Quick Info Pills */
+.info-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.info-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.info-pill:hover {
+  border-color: var(--accent-glow);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.info-pill svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+
+/* ============================================
+   STORY SECTION
+   ============================================ */
+.story-section {
+  margin-bottom: 100px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.story-block {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: all 0.4s ease;
+}
+
+.story-block:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-glow);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.story-block h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.story-block h3 span {
+  font-size: 1.5rem;
+}
+
+.story-block p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   SKILLS SECTION
+   ============================================ */
+.skills-area {
+  margin-bottom: 100px;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skill-item {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  transition: all 0.4s ease;
+}
+
+.skill-item:hover {
+  border-color: var(--accent-glow);
+  box-shadow: 0 10px 40px rgba(99,102,241,0.1);
+}
+
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.skill-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.skill-logo {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99,102,241,0.1);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+
+.skill-logo img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.skill-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skill-percent {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.skill-bar-bg {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+  border-radius: 100px;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 20px rgba(99,102,241,0.3);
+}
+
+.skill-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   TECH CLOUD
+   ============================================ */
+.tech-cloud-section {
+  margin-bottom: 100px;
+}
+
+.tech-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tech-tag {
+  padding: 12px 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tech-tag:hover {
+  background: rgba(99,102,241,0.15);
+  border-color: var(--accent-glow);
+  color: var(--text-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(99,102,241,0.2);
+}
+
+/* ============================================
+   CATEGORIES
+   ============================================ */
+.categories-section {
+  margin-bottom: 100px;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.cat-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.cat-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-glow);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.cat-card:hover::before {
+  transform: scaleX(1);
+}
+
+.cat-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99,102,241,0.1);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  font-size: 28px;
+}
+
+.cat-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.cat-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.cat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.cat-list li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 8px 0;
+  padding-left: 18px;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.cat-list li:last-child {
+  border-bottom: none;
+}
+
+.cat-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(236,72,153,0.05) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cta-text h3 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.cta-text p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 100px;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(99,102,241,0.6);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .about-hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+  
+  .photo-frame {
+    max-width: 300px;
+  }
+  
+  .photo-main img {
+    height: 380px;
+  }
+  
+  .info-pills {
+    justify-content: center;
+  }
+  
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cta-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .photo-main img {
+    height: 320px;
+  }
+  
+  .skill-item {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+
+<div class="about-page">
+
+  <!-- ═══════════════════════════════════════
+       HERO: Photo + Introduction
+       ═══════════════════════════════════════ -->
+  <section class="about-hero reveal">
+    
+    <!-- Left: Photo -->
+    <div class="photo-frame">
+      <div class="photo-deco top-left"></div>
+      <div class="photo-deco bottom-right"></div>
+      
+      <div class="photo-main">
+        <img src="{% static 'IMG_6509.jpg' %}" alt="Sameer Malek - Python & Django Developer">
       </div>
-      <div class="avatar-badge">
-        <span class="badge-dot"></span> Available for work
+      
+      <div class="availability-badge">
+        <span class="badge-pulse"></span>
+        Available for work
       </div>
     </div>
 
-    <!-- Right: Text + Info -->
-    <div class="about-text">
-      <p class="about-lead">Hey! I'm <strong>Sameer Malek</strong>, a Python &amp; Django developer based in India. I build clean, scalable web applications and love turning ideas into real products.</p>
-      <p>My journey started with Python fundamentals and quickly evolved into full-stack Django development — building everything from REST APIs to complete admin dashboards with authentication systems.</p>
-      <p>When I'm not coding, I'm learning new technologies, contributing to open source, and exploring how AI is reshaping backend development.</p>
+    <!-- Right: Text -->
+    <div class="hero-text">
+      <div class="hero-label">About Me</div>
+      
+      <h1 class="hero-title">
+        Hi, I'm <span class="name-highlight">Sameer Malek</span>
+      </h1>
+      
+      <p class="hero-desc">
+        A passionate <strong>Python & Django Developer</strong> from India. I specialize in building clean, scalable web applications and REST APIs that solve real problems.
+      </p>
+      
+      <p class="hero-desc">
+        My journey began with Python fundamentals and quickly grew into full-stack Django development — crafting everything from authentication systems to complete admin dashboards.
+      </p>
+      
+      <p class="hero-desc">
+        When I'm not coding, you'll find me exploring new technologies, contributing to open source, and learning how AI is transforming backend development.
+      </p>
 
-      <div class="info-grid">
-        <div class="info-item">
-          <div class="info-key">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Location
+      <div class="info-pills">
+        <div class="info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          India 🇮🇳
+        </div>
+        <div class="info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          1+ Years
+        </div>
+        <div class="info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Django & Python
+        </div>
+        <div class="info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          maleksameer654@gmail.com
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       STORY SECTION
+       ═══════════════════════════════════════ -->
+  <section class="story-section">
+    <div class="section-header reveal">
+      <div class="section-tag">My Journey</div>
+      <h2 class="section-heading">How I got here</h2>
+    </div>
+    
+    <div class="story-content">
+      <div class="story-block reveal">
+        <h3><span>🚀</span> The Beginning</h3>
+        <p>Started with Python basics and fell in love with its simplicity. Built small scripts and automation tools that sparked my passion for programming.</p>
+      </div>
+      
+      <div class="story-block reveal">
+        <h3><span>💡</span> The Growth</h3>
+        <p>Discovered Django and the world of web development. Built REST APIs, authentication systems, and full-stack applications that solved real problems.</p>
+      </div>
+      
+      <div class="story-block reveal">
+        <h3><span>🎯</span> Now</h3>
+        <p>Working as a freelance Django developer, delivering production-ready web applications. Constantly learning and exploring AI's impact on backend development.</p>
+      </div>
+      
+      <div class="story-block reveal">
+        <h3><span>🔮</span> Next</h3>
+        <p>Looking to collaborate on impactful projects. Open to full-time roles and freelance opportunities that challenge me to grow as a developer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SKILLS SECTION
+       ═══════════════════════════════════════ -->
+  <section class="skills-area">
+    <div class="section-header reveal">
+      <div class="section-tag">Expertise</div>
+      <h2 class="section-heading">Skills & Technologies</h2>
+    </div>
+
+    <div class="skills-list">
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png" alt="Python">
+            </div>
+            <span class="skill-title">Python</span>
           </div>
-          <div class="info-val">India 🇮🇳</div>
+          <span class="skill-percent">90%</span>
         </div>
-        <div class="info-item">
-          <div class="info-key">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            Experience
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="90%"></div>
+        </div>
+        <div class="skill-detail">OOP, scripting, automation, data structures, algorithms</div>
+      </div>
+
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://www.svgrepo.com/show/373554/django.svg" alt="Django">
+            </div>
+            <span class="skill-title">Django</span>
           </div>
-          <div class="info-val">1+ Years</div>
+          <span class="skill-percent">85%</span>
         </div>
-        <div class="info-item">
-          <div class="info-key">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Focus
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="85%"></div>
+        </div>
+        <div class="skill-detail">MVT, ORM, auth, middleware, admin, class-based views</div>
+      </div>
+
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://icon.icepanel.io/Technology/svg/Django-REST.svg" alt="DRF">
+            </div>
+            <span class="skill-title">Django REST Framework</span>
           </div>
-          <div class="info-val">Django &amp; Python</div>
+          <span class="skill-percent">78%</span>
         </div>
-        <div class="info-item">
-          <div class="info-key">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Email
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="78%"></div>
+        </div>
+        <div class="skill-detail">Serializers, ViewSets, JWT auth, token auth, pagination</div>
+      </div>
+
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://icon.icepanel.io/Technology/svg/SQL-Developer.svg" alt="SQL">
+            </div>
+            <span class="skill-title">SQL / SQLite</span>
           </div>
-          <div class="info-val info-email">maleksameer654@gmail.com</div>
+          <span class="skill-percent">80%</span>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SKILLS SECTION -->
-  <div class="section-label reveal">Expertise</div>
-  <h2 class="page-title reveal" style="font-size: clamp(24px, 4vw, 36px); margin-bottom: 32px;">My Skills</h2>
-
-  <!-- MAIN BARS -->
-  <div class="skills-main">
-    <div class="skill-row reveal">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji"><img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png"
-              alt="" style="width: 18PX; height: 18px;"></span><span class="skill-name">Python</span></div>
-        <span class="skill-pct">90%</span>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:90%"></div>
-      </div>
-      <div class="skill-sub">OOP, scripting, automation, data structures, algorithms</div>
-    </div>
-
-    <div class="skill-row reveal" style="transition-delay:0.05s">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji">
-            <img src="https://www.svgrepo.com/show/373554/django.svg" alt="" style="width: 18px; height: 18px;">
-          </span><span class="skill-name">Django</span></div>
-        <span class="skill-pct">85%</span>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:85%"></div>
-      </div>
-      <div class="skill-sub">MVT, ORM, auth, middleware, admin, class-based views</div>
-    </div>
-
-    <div class="skill-row reveal" style="transition-delay:0.1s">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji">
-            <img src="https://icon.icepanel.io/Technology/svg/Django-REST.svg" alt=""
-              style="width: 18px; height: 18px;">
-          </span><span class="skill-name">Django REST Framework</span>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="80%"></div>
         </div>
-        <span class="skill-pct">78%</span>
+        <div class="skill-detail">Schema design, complex queries, migrations, indexing</div>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:78%"></div>
+
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="HTML">
+            </div>
+            <span class="skill-title">HTML / CSS / Bootstrap</span>
+          </div>
+          <span class="skill-percent">82%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="82%"></div>
+        </div>
+        <div class="skill-detail">Responsive layouts, component design, templates</div>
       </div>
-      <div class="skill-sub">Serializers, ViewSets, JWT auth, token auth, pagination</div>
-    </div>
 
-    <div class="skill-row reveal" style="transition-delay:0.15s">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji">
-            <img src="https://icon.icepanel.io/Technology/svg/SQL-Developer.svg" alt=""
-              style="width: 18px; height: 18px;">
-          </span><span class="skill-name">SQL / SQLite</span></div>
-        <span class="skill-pct">80%</span>
+      <div class="skill-item reveal">
+        <div class="skill-top">
+          <div class="skill-info">
+            <div class="skill-logo">
+              <img src="https://icon.icepanel.io/Technology/svg/GitLab.svg" alt="Git">
+            </div>
+            <span class="skill-title">Git / GitHub</span>
+          </div>
+          <span class="skill-percent">75%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="75%"></div>
+        </div>
+        <div class="skill-detail">Branching, pull requests, version control workflows</div>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:80%"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TECH CLOUD
+       ═══════════════════════════════════════ -->
+  <section class="tech-cloud-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Toolbox</div>
+      <h2 class="section-heading">Technologies I Use</h2>
+    </div>
+    
+    <div class="tech-cloud reveal">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Django</span>
+      <span class="tech-tag">DRF</span>
+      <span class="tech-tag">SQLite</span>
+      <span class="tech-tag">PostgreSQL</span>
+      <span class="tech-tag">Bootstrap</span>
+      <span class="tech-tag">HTML5</span>
+      <span class="tech-tag">CSS3</span>
+      <span class="tech-tag">JavaScript</span>
+      <span class="tech-tag">Git</span>
+      <span class="tech-tag">GitHub</span>
+      <span class="tech-tag">VS Code</span>
+      <span class="tech-tag">Postman</span>
+      <span class="tech-tag">JWT</span>
+      <span class="tech-tag">SMTP</span>
+      <span class="tech-tag">Linux</span>
+      <span class="tech-tag">Nginx</span>
+      <span class="tech-tag">Gunicorn</span>
+      <span class="tech-tag">Celery</span>
+      <span class="tech-tag">Redis</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CATEGORIES
+       ═══════════════════════════════════════ -->
+  <section class="categories-section">
+    <div class="section-header reveal">
+      <div class="section-tag">By Category</div>
+      <h2 class="section-heading">Skill Areas</h2>
+    </div>
+
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-icon">
+          <img src="https://icon.icepanel.io/Technology/svg/Stack-Overflow.svg" alt="Backend">
+        </div>
+        <div class="cat-title">Backend</div>
+        <ul class="cat-list">
+          <li>Django MVT architecture</li>
+          <li>REST API design</li>
+          <li>Authentication & sessions</li>
+          <li>Django ORM & migrations</li>
+          <li>Middleware & signals</li>
+        </ul>
       </div>
-      <div class="skill-sub">Schema design, complex queries, migrations, indexing</div>
-    </div>
 
-    <div class="skill-row reveal" style="transition-delay:0.2s">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji">
-            <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="" style="width: 18px; height: 18px;">
-          </span><span class="skill-name">HTML / CSS /
-            Bootstrap</span></div>
-        <span class="skill-pct">82%</span>
+      <div class="cat-card reveal">
+        <div class="cat-icon">
+          <img src="https://icon.icepanel.io/Technology/svg/Azure-SQL-Database.svg" alt="Database">
+        </div>
+        <div class="cat-title">Database</div>
+        <ul class="cat-list">
+          <li>SQLite & PostgreSQL</li>
+          <li>Schema design</li>
+          <li>Complex querysets</li>
+          <li>Database indexing</li>
+          <li>Django migrations</li>
+        </ul>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:82%"></div>
+
+      <div class="cat-card reveal">
+        <div class="cat-icon">
+          <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="Frontend">
+        </div>
+        <div class="cat-title">Frontend</div>
+        <ul class="cat-list">
+          <li>Django templates</li>
+          <li>Bootstrap 5</li>
+          <li>Responsive design</li>
+          <li>HTML5 & CSS3</li>
+          <li>JavaScript basics</li>
+        </ul>
       </div>
-      <div class="skill-sub">Responsive layouts, component design, templates</div>
-    </div>
 
-    <div class="skill-row reveal" style="transition-delay:0.25s">
-      <div class="skill-header">
-        <div class="skill-left"><span class="skill-emoji">
-            <img src="https://icon.icepanel.io/Technology/svg/GitLab.svg" alt="" style="width: 18px; height: 18px;">
-          </span><span class="skill-name">Git / GitHub</span></div>
-        <span class="skill-pct">75%</span>
+      <div class="cat-card reveal">
+        <div class="cat-icon">🛠️</div>
+        <div class="cat-title">Tools & DevOps</div>
+        <ul class="cat-list">
+          <li>Git & GitHub</li>
+          <li>VS Code</li>
+          <li>Postman / API testing</li>
+          <li>Linux terminal</li>
+          <li>Virtual environments</li>
+        </ul>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-fill" style="width:75%"></div>
-      </div>
-      <div class="skill-sub">Branching, pull requests, version control workflows</div>
     </div>
-  </div>
+  </section>
 
-  <!-- TECH CLOUD -->
-  <div class="tech-section reveal">
-    <div class="tech-title">Technologies I've used</div>
-    <div class="tech-cloud">
-      <span class="tech-pill"><span class="dot"></span>Python</span>
-      <span class="tech-pill"><span class="dot"></span>Django</span>
-      <span class="tech-pill"><span class="dot"></span>DRF</span>
-      <span class="tech-pill"><span class="dot"></span>SQLite</span>
-      <span class="tech-pill"><span class="dot"></span>PostgreSQL</span>
-      <span class="tech-pill"><span class="dot"></span>Bootstrap</span>
-      <span class="tech-pill"><span class="dot"></span>HTML5</span>
-      <span class="tech-pill"><span class="dot"></span>CSS3</span>
-      <span class="tech-pill"><span class="dot"></span>JavaScript</span>
-      <span class="tech-pill"><span class="dot"></span>Git</span>
-      <span class="tech-pill"><span class="dot"></span>GitHub</span>
-      <span class="tech-pill"><span class="dot"></span>VS Code</span>
-      <span class="tech-pill"><span class="dot"></span>Postman</span>
-      <span class="tech-pill"><span class="dot"></span>JWT</span>
-      <span class="tech-pill"><span class="dot"></span>SMTP</span>
-      <span class="tech-pill"><span class="dot"></span>Linux</span>
-      <span class="tech-pill"><span class="dot"></span>Nginx</span>
-      <span class="tech-pill"><span class="dot"></span>Gunicorn</span>
-      <span class="tech-pill"><span class="dot"></span>Celery</span>
-      <span class="tech-pill"><span class="dot"></span>Redis</span>
-    </div>
-  </div>
-
-  <!-- CATEGORIES -->
-  <div class="section-label reveal">By category</div>
-  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:24px;" class="reveal">Skill
-    areas</h2>
-
-  <div class="cat-grid">
-    <div class="cat-card reveal">
-      <span class="cat-icon">
-        <img src="https://icon.icepanel.io/Technology/svg/Stack-Overflow.svg" alt="" style="width: 32px; height: 32px;">
-      </span>
-      <div class="cat-name">Backend</div>
-      <ul class="cat-list">
-        <li>Django MVT architecture</li>
-        <li>REST API design</li>
-        <li>Authentication & sessions</li>
-        <li>Django ORM & migrations</li>
-        <li>Middleware & signals</li>
-      </ul>
-    </div>
-
-    <div class="cat-card reveal" style="transition-delay:0.1s">
-      <span class="cat-icon">
-        <img src="https://icon.icepanel.io/Technology/svg/Azure-SQL-Database.svg" alt=""
-          style="width: 32px; height: 32px;">
-      </span>
-      <div class="cat-name">Database</div>
-      <ul class="cat-list">
-        <li>SQLite & PostgreSQL</li>
-        <li>Schema design</li>
-        <li>Complex querysets</li>
-        <li>Database indexing</li>
-        <li>Django migrations</li>
-      </ul>
-    </div>
-
-    <div class="cat-card reveal" style="transition-delay:0.2s">
-      <span class="cat-icon">
-        <img src="https://icon.icepanel.io/Technology/svg/HTML5.svg" alt="" style="width: 32px; height: 32px;">
-      </span>
-      <div class="cat-name">Frontend</div>
-      <ul class="cat-list">
-        <li>Django templates</li>
-        <li>Bootstrap 5</li>
-        <li>Responsive design</li>
-        <li>HTML5 & CSS3</li>
-        <li>JavaScript basics</li>
-      </ul>
-    </div>
-
-    <div class="cat-card reveal" style="transition-delay:0.3s">
-      <span class="cat-icon">🛠️</span>
-      <div class="cat-name">Tools & DevOps</div>
-      <ul class="cat-list">
-        <li>Git & GitHub</li>
-        <li>VS Code</li>
-        <li>Postman / API testing</li>
-        <li>Linux terminal</li>
-        <li>Virtual environments</li>
-      </ul>
-    </div>
-  </div>
-
-
-
-  <!-- CTA -->
-  <div class="about-cta reveal">
+  <!-- ═══════════════════════════════════════
+       CTA
+       ═══════════════════════════════════════ -->
+  <section class="cta-section reveal">
     <div class="cta-text">
       <h3>Want to work together?</h3>
       <p>I'm available for freelance projects and full-time roles.</p>
     </div>
-    <a href="/contact/" class="btn-cta">Get in touch →</a>
-  </div>
+    <a href="/contact/" class="cta-btn">Get in touch →</a>
+  </section>
+
 </div>
 
 <script>
-  const obs = new IntersectionObserver(e => e.forEach(x => {
-    if (x.isIntersecting) {
-      x.target.classList.add('visible');
-      x.target.querySelectorAll('.bar-fill').forEach(b => b.classList.add('go'));
-    }
-  }), { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Scroll reveal with skill bar animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        
+        // Animate skill bars
+        const bars = entry.target.querySelectorAll('.skill-bar-fill');
+        bars.forEach(bar => {
+          const width = bar.getAttribute('data-width');
+          if (width) {
+            setTimeout(() => {
+              bar.style.width = width;
+            }, 300);
+          }
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
 {% endblock %}
