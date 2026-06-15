@@ -23,14 +23,18 @@
   <div class="proj-grid">
     <!-- Featured -->
     <div class="featured-card reveal" data-cat="web-app">
+      {% load static %}
+
       <div class="featured-thumb">
-        <img src="../static/123.png/" alt="" height="350px" width="500px">
+        <img src="{% static '123.png' %}" alt="" height="350" width="500">
         <span class="featured-badge">★ Featured</span>
       </div>
       <div class="featured-body">
         <span class="proj-cat">Web App</span>
-        <div class="proj-title" style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;margin:12px 0">Student Dashboard</div>
-        <div class="proj-desc">Full-featured student management system with role-based access control, attendance tracking, grade management, and automated report generation. Built with Django admin customization.</div>
+        <div class="proj-title" style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;margin:12px 0">
+          Student Dashboard</div>
+        <div class="proj-desc">Full-featured student management system with role-based access control, attendance
+          tracking, grade management, and automated report generation. Built with Django admin customization.</div>
         <div class="proj-stack">
           <span class="stack-tag">Django</span><span class="stack-tag">Python</span>
           <span class="stack-tag">SQLite</span><span class="stack-tag">Bootstrap</span>
@@ -38,8 +42,8 @@
         </div>
         <div class="proj-footer">
           <a href="#" class="proj-link">
-                <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
-             GitHub</a>
+            <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
+            GitHub</a>
           <a href="#" class="proj-link">↗ Live Demo</a>
         </div>
       </div>
@@ -54,17 +58,19 @@
           <span class="proj-num">02</span>
         </div>
         <div class="proj-title">Hospital Management</div>
-        <div class="proj-desc">RESTful API system for managing patients, doctors, appointments, and billing. Includes JWT authentication and role-based permissions.</div>
+        <div class="proj-desc">RESTful API system for managing patients, doctors, appointments, and billing. Includes
+          JWT authentication and role-based permissions.</div>
         <div class="proj-stack">
           <span class="stack-tag">Django REST</span><span class="stack-tag">Python</span>
           <span class="stack-tag">JWT</span><span class="stack-tag">PostgreSQL</span>
         </div>
         <div class="proj-footer">
           <a href="#" class="proj-link">
-                <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
-             GitHub</a>
+            <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
+            GitHub</a>
           <a href="#" class="proj-link">
-            <img src="https://www.svgrepo.com/show/530439/api-interface.svg" alt="" style="height: 20px; width: 20px;"> API Docs</a>
+            <img src="https://www.svgrepo.com/show/530439/api-interface.svg" alt="" style="height: 20px; width: 20px;">
+            API Docs</a>
         </div>
       </div>
     </div>
@@ -78,15 +84,16 @@
           <span class="proj-num">03</span>
         </div>
         <div class="proj-title">OTP Login System</div>
-        <div class="proj-desc">Passwordless authentication using email OTP. Secure session management, OTP expiry, and Django middleware integration.</div>
+        <div class="proj-desc">Passwordless authentication using email OTP. Secure session management, OTP expiry, and
+          Django middleware integration.</div>
         <div class="proj-stack">
           <span class="stack-tag">Django</span><span class="stack-tag">SMTP</span>
           <span class="stack-tag">Sessions</span><span class="stack-tag">smtplib</span>
         </div>
         <div class="proj-footer">
           <a href="#" class="proj-link">
-                <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
-             GitHub</a>
+            <i class="devicon-github-original skill-icon" style="font-size: 15px;"></i>
+            GitHub</a>
         </div>
       </div>
     </div>
