@@ -32,12 +32,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ALLOWED_HOSTS = ["*","localhost", "127.0.0.1", ".onrender.com"]
 import os
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG ="True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = os.getenv(
-    "ALLOWED_HOSTS",
     "*"
 ).split(",")
 CSRF_TRUSTED_ORIGINS = [
