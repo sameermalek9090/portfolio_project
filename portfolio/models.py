@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Contact(models.Model):
     first_name = models.CharField(max_length=100)
@@ -10,3 +11,10 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.first_name} - {self.subject}"
+    
+
+
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    image = CloudinaryField('image')
