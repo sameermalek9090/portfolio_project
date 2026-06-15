@@ -25,12 +25,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-SECRET_KEY = 'django-insecure-your-secret-key'
+# SECRET_KEY = 'django-insecure-your-secret-key'
 
-DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = ["*","localhost", "127.0.0.1"]
+# ALLOWED_HOSTS = ["*","localhost", "127.0.0.1", ".onrender.com"]
+import os
 
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1"
+).split(",")
 
 # Application definition
 
